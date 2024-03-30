@@ -1,0 +1,55 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>КИНОТЕАТР</title>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">КИНОТЕАТР</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="#">Выбор фильма  <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" th:href="@{/registration}">Регистрация</a>
+                <a class="nav-item nav-link" th:if="${user.name == 'Гость'}" th:href="@{/login}">
+                    <span th:text="${user.name}"></span>
+                    <span> | Войти</span>
+                </a>
+                <a class="nav-item nav-link" th:if="${user.name != 'Гость'}" th:href="@{/logout}">
+                    <span th:text="${user.name}"></span>
+                    <span> | Выйти</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="card" style="width: 100%">
+            <div class="card-header">
+                Фильмы
+            </div>
+            <div class="card-body">
+                <form th:action="@{/session}" method="post">
+                    <div class="form-group">
+                        <label for="id">Выберите фильм</label>
+                        <select class="form-control" id="id" name="id">
+                            <option th:each="filmSession : ${sessions}" th:value="${filmSession.id}" th:text="${filmSession.name}"></option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Выбрать место в зале на выбранный фильм</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
